@@ -1,22 +1,17 @@
 package com.jurecki;
 
+import com.jurecki.configuration.AppConfiguration;
 import com.jurecki.model.Car;
-import com.jurecki.service.impl.CarServiceImpl;
+import com.jurecki.service.ICarService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-        Car car = new Car(5, "Audi", "A6", 2005);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        ICarService carService = context.getBean(ICarService.class);
 
-        CarServiceImpl.saveCar(car);
-       // CarRepository.persistCar(car);
-       // Car car2 = CarRepository.getCarById(1);
-        // System.out.println(car2);
-/*
-        List<Car> bmwCars = CarRepository.getAllBMWCars();
-        System.out.println("LISTA");
-        for(Car tempCar : bmwCars){
-            System.out.println(tempCar);
-        }
-*/
+        Car car = new Car(5, "Fiat", "A50", 2010);
+
+        carService.saveCar(car);
     }
 }
